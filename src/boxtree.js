@@ -174,12 +174,10 @@ Boxtree.prototype = {
 			self._initBucketState( bucket );
 			callback( bucket );
 		}, {
-			// phantomPath: self.phantomPath,
-			// parameters: {
-			//     "proxy": "127.0.0.1:8200"
-			// }
 			parameters: {
-				"web-security": "no"
+				"web-security": "no",
+				"ssl-protocol": "any",
+				"ignore-ssl-errors": "yes"
 			},
 			phantomPath: self.phantomPath
 		}  );
