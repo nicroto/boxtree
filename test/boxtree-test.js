@@ -25,9 +25,13 @@ var beforeEachFunc = function(done) {
 	} );
 };
 var afterEachFunc = function(done) {
-	boxtree.finalize( function() {
+	if ( !boxtree.isBeingFinalized ) {
+		boxtree.finalize( function() {
+			done();
+		} );
+	} else {
 		done();
-	} );
+	}
 };
 var afterAllFunc = function() {
 	boxtreeModule.cleanMock();
@@ -240,6 +244,14 @@ describe( "boxtree", function(){
 						boxtree.releaseBox( box3 );
 					} );
 				} );
+			} );
+		} );
+		it( "doesn't throw error if boxtree is being finalized", function(done) {
+			boxtree.reserveBox( function(box1) {
+				should( function() {
+					boxtree.finalize( done );
+					boxtree.releaseBox( box1 );
+				} ).not.throw();
 			} );
 		} );
 	} );

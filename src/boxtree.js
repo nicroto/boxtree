@@ -44,6 +44,7 @@ Boxtree.prototype = {
 	runningPool: null,
 	reservationQueue: null,
 	getPageQueue: null,
+	isBeingFinalized: false,
 
 
 	init: function(callback) {
@@ -82,9 +83,11 @@ Boxtree.prototype = {
 		var self = this,
 			page = instance.page;
 
-		instance.finalize();
-		self.runningPool.splice( self.runningPool.indexOf( instance ), 1 );
-		self.recyclePage( page );
+		if ( !self.isBeingFinalized ) {
+			instance.finalize();
+			self.runningPool.splice( self.runningPool.indexOf( instance ), 1 );
+			self.recyclePage( page );
+		}
 	},
 
 	getPage: function( callback ) {
@@ -126,6 +129,8 @@ Boxtree.prototype = {
 	finalize: function(callback) {
 		var self = this,
 			asyncCount = self.buckets.length;
+
+		self.isBeingFinalized = true;
 		for ( var i = 0; i < self.buckets.length; i++ ) {
 			( function() {
 			var index = i;
