@@ -255,6 +255,8 @@ I had to lock the versions because boxtree's only dependency, node-phantom, does
 
 ## Release History
 
+ - 1.0.2
+   - Fix: releasing a box after boxtree.finalize() has been called results in js error.
  - 1.0.1
    - Fix: can't load a page with ssl errors.
  - 1.0.0
