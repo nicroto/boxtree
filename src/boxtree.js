@@ -83,11 +83,9 @@ Boxtree.prototype = {
 		var self = this,
 			page = instance.page;
 
-		if ( !self.isBeingFinalized ) {
-			instance.finalize();
-			self.runningPool.splice( self.runningPool.indexOf( instance ), 1 );
-			self.recyclePage( page );
-		}
+		instance.finalize();
+		self.runningPool.splice( self.runningPool.indexOf( instance ), 1 );
+		self.recyclePage( page );
 	},
 
 	getPage: function( callback ) {
@@ -109,6 +107,10 @@ Boxtree.prototype = {
 		var self = this,
 			bucketIndex = page._boxtree_bucketId,
 			bucket = self.buckets[ bucketIndex ];
+
+		if ( self.isBeingFinalized ) {
+			return;
+		}
 
 		bucket.forRecycle.push( page );
 		if ( bucket.size === bucket.forRecycle.length ) {

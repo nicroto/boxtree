@@ -377,6 +377,14 @@ describe( "boxtree", function(){
 				} );
 			} );
 		} );
+		it( "doesn't throw error if boxtree is being finalized", function(done) {
+			boxtree.reserveBox( function(box1) {
+				should( function() {
+					boxtree.finalize( done );
+					boxtree.recyclePage( box1.page );
+				} ).not.throw();
+			} );
+		} );
 	} );
 	describe( "phantom complete crash handling", function() {
 		beforeEach( beforeEachFunc );
@@ -464,6 +472,18 @@ describe( "boxtree", function(){
 						} ).not.throw();
 						done();
 					} );
+				} );
+			} );
+		} );
+		it( "doesn't break when boxtree is being finalized", function(done) {
+			var bucket = boxtree.buckets[0];
+
+			boxtree.reserveBox( function() {
+				boxtree.finalize( function() {
+					should( function() {
+						bucket.phantom._phantom.stderr.emit( "data" );
+					} ).not.throw();
+					done();
 				} );
 			} );
 		} );
