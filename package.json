@@ -1,7 +1,7 @@
 {
   "name": "boxtree",
   "description": "Execute JavaScript in an isolated, browser environment (box). You can spawn new boxes from your script, creating - tree of boxes.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": {
     "name": "nicroto",
     "email": "nikolay@tsenkov.net",
