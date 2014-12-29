@@ -253,6 +253,10 @@ Rerun this command if you add/change/remove a dependency to regenerate npm-shrin
 
 I had to lock the versions because boxtree's only dependency, node-phantom, doesn't work with the current version of socket.io (dependency of node-phantom), but the author still uses the ~ in-front of the version of socket.io in the package.json of node-phantom.
 
+## TODO
+
+ - Finalize instances on finalize of boxtree. (otherwise running instances will throw an error - timeout).
+
 ## Release History
 
  - 1.0.3
