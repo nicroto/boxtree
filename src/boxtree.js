@@ -6,7 +6,8 @@
 var pathUtils = require("path"),
 	fs = require("fs"),
 	nodePhantom = require("node-phantom"),
-	clientScript = fs.readFileSync( pathUtils.resolve( pathUtils.join( __dirname, "client.js" ) ), "utf-8" );
+	clientScript = fs.readFileSync( pathUtils.resolve( pathUtils.join( __dirname, "client.js" ) ), "utf-8" ),
+	isWin = /^win/.test( process.platform );
 
 var Instance = require("./instance"),
 	DEFAULT_BUCKETS_COUNT = 2;
@@ -16,7 +17,7 @@ function Boxtree(phantomPath, poolSize, bucketsCount) {
 	var self = this;
 
 	if ( !phantomPath ) {
-		phantomPath = "/usr/local/bin/phantomjs";
+		phantomPath = isWin ? "phantomjs" : "/usr/local/bin/phantomjs";
 	}
 	if ( !poolSize ) {
 		throw new Error( "There should be a poolSize argument, which is a positive number > 0" );

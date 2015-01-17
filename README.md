@@ -259,6 +259,8 @@ I had to lock the versions because boxtree's only dependency, node-phantom, does
 
 ## Release History
 
+ - 1.0.4
+   - Fix: instance tests fail on Windows.
  - 1.0.3
    - Fix: crash on bucketCrash after boxtree.finalize is called.
  - 1.0.2
